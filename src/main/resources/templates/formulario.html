@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscribir jugador</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+<main>
+  <h1>Escuela de Fútbol Los Cerritos</h1>
+  <h2 th:text="${jugador.id == null} ? 'Inscribir jugador' : 'Editar jugador'">Inscribir jugador</h2>
+
+  <form th:action="@{/jugadores}" th:object="${jugador}" method="post" novalidate>
+    <input type="hidden" th:field="*{id}">
+
+    <label for="nombre">Nombre completo</label>
+    <input id="nombre" type="text" th:field="*{nombre}" th:errorclass="campo-error">
+    <p class="mensaje-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error</p>
+
+    <label for="edad">Edad (5 a 17 años)</label>
+    <input id="edad" type="number" th:field="*{edad}" th:errorclass="campo-error">
+    <p class="mensaje-error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">Error</p>
+
+    <label for="posicion">Posición</label>
+    <select id="posicion" th:field="*{posicion}">
+      <option value="Portero">Portero</option>
+      <option value="Defensa">Defensa</option>
+      <option value="Mediocampista">Mediocampista</option>
+      <option value="Delantero">Delantero</option>
+    </select>
+
+    <button type="submit">Guardar</button>
+    <a th:href="@{/jugadores}">Cancelar</a>
+  </form>
+</main>
+</body>
+</html>

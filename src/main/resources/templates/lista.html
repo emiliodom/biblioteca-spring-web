@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jugadores inscritos</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+<main>
+  <h1>Escuela de Fútbol Los Cerritos</h1>
+
+  <div class="barra">
+    <span>Sesión de: <strong sec:authentication="name">usuario</strong></span>
+    <form th:action="@{/logout}" method="post" class="en-linea">
+      <button type="submit" class="secundario">Cerrar sesión</button>
+    </form>
+  </div>
+
+  <p>Total registrados: <strong th:text="${total}">0</strong></p>
+
+  <!-- Solo el administrador ve este enlace -->
+  <p sec:authorize="hasRole('ADMIN')"><a th:href="@{/jugadores/nuevo}">+ Inscribir jugador</a></p>
+
+  <p th:if="${total == 0}">Todavía no hay jugadores inscritos.</p>
+  <table th:if="${total > 0}">
+    <thead>
+      <tr><th>Id</th><th>Nombre</th><th>Edad</th><th>Posición</th><th sec:authorize="hasRole('ADMIN')">Acciones</th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="jugador : ${jugadores}">
+        <td th:text="${jugador.id}">1</td>
+        <td th:text="${jugador.nombre}">Nombre</td>
+        <td th:text="${jugador.edad}">12</td>
+        <td th:text="${jugador.posicion}">Portero</td>
+        <td sec:authorize="hasRole('ADMIN')">
+          <a th:href="@{/jugadores/{id}/editar(id=${jugador.id})}">Editar</a>
+          <form th:action="@{/jugadores/{id}/eliminar(id=${jugador.id})}" method="post" class="en-linea">
+            <button type="submit" class="peligro">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>

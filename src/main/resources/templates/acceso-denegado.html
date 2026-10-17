@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceso denegado</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+<main>
+  <h1>Escuela de Fútbol Los Cerritos</h1>
+  <div class="aviso error" role="alert">
+    <p><strong>No tienes permiso para esta acción.</strong></p>
+    <p>Tu usuario puede ver la lista, pero solo un administrador puede inscribir, editar o eliminar jugadores.</p>
+  </div>
+  <p><a th:href="@{/jugadores}">Volver a la lista</a></p>
+</main>
+</body>
+</html>
