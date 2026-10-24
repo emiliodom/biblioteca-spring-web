@@ -1,49 +1,62 @@
 <!doctype html>
-<html lang="es"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jugadores inscritos</title>
+  <title>Libros Registrados</title>
   <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
+
 <body>
-<main>
-  <h1>Escuela de Fútbol Los Cerritos</h1>
+  <main>
+    <h1>Biblioteca</h1>
 
-  <div class="barra">
-    <span>Sesión de: <strong sec:authentication="name">usuario</strong></span>
-    <form th:action="@{/logout}" method="post" class="en-linea">
-      <button type="submit" class="secundario">Cerrar sesión</button>
-    </form>
-  </div>
+    <div class="barra">
+      <span>Sesión de: <strong sec:authentication="name">usuario</strong></span>
+      <form th:action="@{/logout}" method="post" class="en-linea">
+        <button type="submit" class="secundario">Cerrar sesión</button>
+      </form>
+    </div>
 
-  <p>Total registrados: <strong th:text="${total}">0</strong></p>
+    <p>Total registrados: <strong th:text="${total}">0</strong></p>
 
-  <!-- Solo el administrador ve este enlace -->
-  <p sec:authorize="hasRole('ADMIN')"><a th:href="@{/jugadores/nuevo}">+ Inscribir jugador</a></p>
+    <!-- Solo el administrador ve este enlace -->
+    <p sec:authorize="hasRole('ADMIN')"><a th:href="@{/libros/nuevo}">+ Agregar libro</a></p>
 
-  <p th:if="${total == 0}">Todavía no hay jugadores inscritos.</p>
-  <table th:if="${total > 0}">
-    <thead>
-      <tr><th>Id</th><th>Nombre</th><th>Edad</th><th>Posición</th><th sec:authorize="hasRole('ADMIN')">Acciones</th></tr>
-    </thead>
-    <tbody>
-      <tr th:each="jugador : ${jugadores}">
-        <td th:text="${jugador.id}">1</td>
-        <td th:text="${jugador.nombre}">Nombre</td>
-        <td th:text="${jugador.edad}">12</td>
-        <td th:text="${jugador.posicion}">Portero</td>
-        <td sec:authorize="hasRole('ADMIN')">
-          <a th:href="@{/jugadores/{id}/editar(id=${jugador.id})}">Editar</a>
-          <form th:action="@{/jugadores/{id}/eliminar(id=${jugador.id})}" method="post" class="en-linea">
-            <button type="submit" class="peligro">Eliminar</button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</main>
+    <p th:if="${total == 0}">Todavía no hay libros registrados.</p>
+    <table th:if="${total > 0}">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Titulo</th>
+          <th>Autor</th>
+          <th>Año</th>
+          <th>Genero</th>
+          <th>Número de páginas</th>
+          <th>Idioma</th>
+          <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="libro : ${libros}">
+          <td th:text="${libro.id}">1</td>
+          <td th:text="${libro.titulo}">Titulo</td>
+          <td th:text="${libro.autor}">Autor</td>
+          <td th:text="${libro.anioPublicacion}">Año Publicacion</td>
+          <td th:text="${libro.genero}">Genero</td>
+          <td th:text="${libro.numeroPaginas}">Numero de Paginas</td>
+          <td th:text="${libro.idioma}">Idioma</td>
+          <td sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/libros/{id}/editar(id=${libro.id})}">Editar</a>
+            <form th:action="@{/libros/{id}/eliminar(id=${libro.id})}" method="post" class="en-linea">
+              <button type="submit" class="peligro">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
 </body>
+
 </html>

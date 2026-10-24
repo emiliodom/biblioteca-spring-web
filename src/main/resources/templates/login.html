@@ -1,31 +1,34 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Iniciar sesión</title>
   <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
+
 <body>
-<main>
-  <h1>Escuela de Fútbol Los Cerritos</h1>
-  <h2>Iniciar sesión</h2>
+  <main>
+    <h1>Biblioteca</h1>
+    <h2>Iniciar sesión</h2>
 
-  <div class="aviso error" role="alert" th:if="${param.error}">
-    Usuario o contraseña incorrectos.
-  </div>
-  <div class="aviso" th:if="${param.salio}">
-    Cerraste tu sesión.
-  </div>
+    <div class="aviso error" role="alert" th:if="${param.error}">
+      Usuario o contraseña incorrectos.
+    </div>
+    <div class="aviso" th:if="${param.salio}">
+      Cerraste tu sesión.
+    </div>
 
-  <!-- Los nombres username y password son los que Spring Security espera. -->
-  <form th:action="@{/login}" method="post">
-    <label for="username">Usuario</label>
-    <input id="username" type="text" name="username" autofocus>
-    <label for="password">Contraseña</label>
-    <input id="password" type="password" name="password">
-    <button type="submit">Entrar</button>
-  </form>
-</main>
+    <!-- Los nombres username y password son los que Spring Security espera. -->
+    <form th:action="@{/login}" method="post">
+      <label for="username">Usuario</label>
+      <input id="username" type="text" name="username" autofocus>
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" name="password">
+      <button type="submit">Entrar</button>
+    </form>
+  </main>
 </body>
+
 </html>

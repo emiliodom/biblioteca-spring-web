@@ -22,12 +22,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(reglas -> reglas
                 // Gana la PRIMERA regla que coincide: el orden importa.
                 .requestMatchers("/login", "/estilos.css", "/error").permitAll()
-                .requestMatchers("/jugadores/nuevo", "/jugadores/*/editar").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/jugadores/**").hasRole("ADMIN")
+                .requestMatchers("/libros/nuevo", "/libros/*/editar").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/libros/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .formLogin(login -> login
                 .loginPage("/login")
-                .defaultSuccessUrl("/jugadores", true))
+                .defaultSuccessUrl("/libros", true))
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?salio"))
             .exceptionHandling(errores -> errores

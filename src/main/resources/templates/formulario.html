@@ -1,38 +1,112 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inscribir jugador</title>
-  <link rel="stylesheet" th:href="@{/estilos.css}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inscribir libro</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}" />
 </head>
+
 <body>
-<main>
-  <h1>Escuela de Fútbol Los Cerritos</h1>
-  <h2 th:text="${jugador.id == null} ? 'Inscribir jugador' : 'Editar jugador'">Inscribir jugador</h2>
+  <main>
+    <h1>Biblioteca</h1>
+    <h2 th:text="${libro.id == null} ? 'Inscribir libro' : 'Editar libro'">Inscribir libro</h2>
 
-  <form th:action="@{/jugadores}" th:object="${jugador}" method="post" novalidate>
-    <input type="hidden" th:field="*{id}">
+    <form th:action="@{/libros}" th:object="${libro}" method="post" novalidate>
+      <input type="hidden" th:field="*{id}" />
 
-    <label for="nombre">Nombre completo</label>
-    <input id="nombre" type="text" th:field="*{nombre}" th:errorclass="campo-error">
-    <p class="mensaje-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error</p>
+      <!--RESUMEN ERRORES-->
+      <div th:if="${#fields.hasErrors()}">
+        <p>Por favor corrija los siguientes errores:</p>
+        <ul>
+          <li th:each="err : ${#fields.errors()}" th:text="${err}">Error</li>
+        </ul>
+      </div>
 
-    <label for="edad">Edad (5 a 17 años)</label>
-    <input id="edad" type="number" th:field="*{edad}" th:errorclass="campo-error">
-    <p class="mensaje-error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">Error</p>
 
-    <label for="posicion">Posición</label>
-    <select id="posicion" th:field="*{posicion}">
-      <option value="Portero">Portero</option>
-      <option value="Defensa">Defensa</option>
-      <option value="Mediocampista">Mediocampista</option>
-      <option value="Delantero">Delantero</option>
-    </select>
+      <div th:if="${#fields.hasErrors('titulo')}" class="campo-error" th:errors="*{titulo}"></div>
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" th:field="*{titulo}" required />
+      <div class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+      </div>
 
-    <button type="submit">Guardar</button>
-    <a th:href="@{/jugadores}">Cancelar</a>
-  </form>
-</main>
+      <div>
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" th:field="*{autor}" required />
+        <div th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}"></div>
+      </div>
+
+      <div>
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" th:field="*{isbn}" required />
+        <div th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></div>
+      </div>
+
+      <div>
+        <label for="editorial">Editorial:</label>
+        <input type="text" id="editorial" th:field="*{editorial}" required />
+        <div th:if="${#fields.hasErrors('editorial')}" th:errors="*{editorial}"></div>
+      </div>
+
+      <div>
+        <label for="anioPublicacion">Año de publicación:</label>
+        <input type="number" id="anioPublicacion" th:field="*{anioPublicacion}" required />
+        <div th:if="${#fields.hasErrors('anioPublicacion')}" th:errors="*{anioPublicacion}"></div>
+      </div>
+
+
+      <div>
+        <label for="numeroPaginas">Número de páginas:</label>
+        <input type="number" id="numeroPaginas" th:field="*{numeroPaginas}" required />
+        <div th:if="${#fields.hasErrors('numeroPaginas')}" th:errors="*{numeroPaginas}"></div>
+      </div>
+
+      <div>
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" th:field="*{genero}" required />
+        <div th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
+      </div>
+
+      <div>
+        <label for="idioma">Idioma:</label>
+        <input type="text" id="idioma" th:field="*{idioma}" required />
+        <div th:if="${#fields.hasErrors('idioma')}" th:errors="*{idioma}"></div>
+      </div>
+
+      <div>
+        <label for="ejemplares">Número de ejemplares:</label>
+        <input type="number" id="ejemplares" th:field="*{ejemplares}" required />
+        <div th:if="${#fields.hasErrors('ejemplares')}" th:errors="*{ejemplares}"></div>
+      </div>
+
+      <div>
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" id="precio" th:field="*{precio}" required />
+        <div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+      </div>
+
+      <div>
+        <label for="fechaIngreso">Fecha de ingreso:</label>
+        <input type="date" id="fechaIngreso" th:field="*{fechaIngreso}" required />
+        <div th:if="${#fields.hasErrors('fechaIngreso')}" th:errors="*{fechaIngreso}"></div>
+      </div>
+
+      <data class="disponible">
+        <label for="disponible">Disponible:</label>
+        <input type="checkbox" id="disponible" th:field="*{disponible}" />
+      </data>
+
+      <div>
+        <label for="resumen">Resumen:</label>
+        <textarea id="resumen" th:field="*{resumen}" rows="4" cols="20" required></textarea>
+        <div th:if="${#fields.hasErrors('resumen')}" th:errors="*{resumen}"></div>
+      </div>
+
+      <button type="submit">Guardar</button>
+      <a th:href="@{/libros}">Cancelar</a>
+    </form>
+  </main>
 </body>
+
 </html>

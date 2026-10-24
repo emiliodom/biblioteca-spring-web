@@ -4,30 +4,30 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import gt.edu.url.tallerformularios.model.Jugador;
-import gt.edu.url.tallerformularios.repository.JugadorRepository;
+import gt.edu.url.tallerformularios.model.Libro;
+import gt.edu.url.tallerformularios.repository.LibroRepository;
 
 @Service
-public class JugadorService {
+public class LibroService {
 
-    private final JugadorRepository repositorio;
+    private final LibroRepository repositorio;
 
-    public JugadorService(JugadorRepository repositorio) {
+    public LibroService(LibroRepository repositorio) {
         this.repositorio = repositorio;
     }
 
-    public List<Jugador> listarTodos() {
+    public List<Libro> listarTodos() {
         return repositorio.findAll();
     }
 
-    public Jugador buscarPorId(Long id) {
+    public Libro buscarPorId(Long id) {
         return repositorio.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(
-                        "No existe un jugador con id " + id));
+                        "No existe un libro con id " + id));
     }
 
-    public Jugador guardar(Jugador jugador) {
-        return repositorio.save(jugador);
+    public Libro guardar(Libro libro) {
+        return repositorio.save(libro);
     }
 
     public void eliminar(Long id) {
